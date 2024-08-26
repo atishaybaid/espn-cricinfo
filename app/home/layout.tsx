@@ -3,6 +3,8 @@
 // }
 
 
+//this would have been renderd on server
+
 export default function HomeLayout({
     children,
   }: Readonly<{
@@ -10,7 +12,13 @@ export default function HomeLayout({
   }>) {
     return (
       <div>
+        <div className="heder">
+            Espn cric info branding
+        </div>
        {children}
+       <div className="footer">
+            Reference links
+        </div>
       </div>
     );
   }
