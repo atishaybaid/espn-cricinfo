@@ -22,6 +22,8 @@ check for react entry and exit animation
 
 
 logic for translate
+
+
  
 
 
@@ -29,26 +31,57 @@ logic for translate
 
 
 */
-import { ReactNode } from 'react'
+"use client";
 
-interface  CarouselProp {
+import { ReactNode, cloneElement, useState } from 'react'
+
+interface  CarouxselProp {
     children :ReactNode[],
     simultanousCards:string | number
 }
 
-const Carousel = ({children,simultanousCards = 1}:CarouselProp)=>{
+const Carousel = ({children,simultanousCards = 3}:CarouselProp)=>{
+    const [sliderStartIndex,setSliderStartIndex]= useState(0);
+    const carouseWidth = `${344*simultanousCards}px`
+
+    const onClickNext = ()=>{
+         console.log("on click next called");
+         console.log(sliderStartIndex);
+        setSliderStartIndex((currenIndex)=>{
+            return currenIndex + parseInt(simultanousCards);
+        })
+    }
+
+
+    const onClickPrev = ()=>{
+        console.log("on click prev called");
+        console.log(sliderStartIndex);
+        setSliderStartIndex((currenIndex)=>{
+            return currenIndex -parseInt(simultanousCards);
+        })
+    }
+
 
     return (
-        <div className="flex  w-[900px] overflow-scroll">
+        <div className="flex">
+            <img src="/leftArrow.svg" className='w-6 cursor-pointer z-100' onClick={onClickPrev}/>
+            <div className={`flex overflow-hidden`} style={{width:carouseWidth}}>
+            {/* <div className={`flex  w-[1032px] overflow-hidden`}> */}
           {children.map((child, i, arr) => {
+            // const clonnedChild = cloneElement(child,{sliderStartIndex:sliderStartIndex})
             if (i + 1 === arr.length) return child
             return (
-              <>
+              <div style={{
+                transform: `translateX(-${100*(sliderStartIndex)}%)`,
+            }}
+            className='transition duration-300 ease-in-out'>
                 {child}
                 <br />
-              </>
+              </div>
             )
           })}
+          </div>
+             <img src="/rightArrow.svg" className='w-6 cursor-pointer z-100' onClick={onClickNext}/>
         </div>
       )
 
@@ -56,3 +89,4 @@ const Carousel = ({children,simultanousCards = 1}:CarouselProp)=>{
 
 
 export default Carousel;
+
