@@ -33,22 +33,28 @@ logic for translate
 */
 "use client";
 
-import { ReactNode, cloneElement, useState } from 'react'
+import { Children, ReactNode, cloneElement, useState } from 'react'
 
-interface  CarouxselProp {
+interface  CarouselProp {
     children :ReactNode[],
-    simultanousCards:string | number
+    simultanousCards:string | number,
+    cycle:boolean
 }
 
-const Carousel = ({children,simultanousCards = 3}:CarouselProp)=>{
+const Carousel = ({children,simultanousCards = 3,cycle=false}:CarouselProp)=>{
     const [sliderStartIndex,setSliderStartIndex]= useState(0);
     const carouseWidth = `${344*simultanousCards}px`
+    const chlidCount = Children.count(children);
 
     const onClickNext = ()=>{
          console.log("on click next called");
          console.log(sliderStartIndex);
         setSliderStartIndex((currenIndex)=>{
-            return currenIndex + parseInt(simultanousCards);
+            if(!cycle){
+             return  Math.min(chlidCount-simultanousCards,currenIndex + parseInt(simultanousCards));
+            } else {
+            return (currenIndex + parseInt(simultanousCards))%chlidCount;
+            }
         })
     }
 
@@ -57,7 +63,13 @@ const Carousel = ({children,simultanousCards = 3}:CarouselProp)=>{
         console.log("on click prev called");
         console.log(sliderStartIndex);
         setSliderStartIndex((currenIndex)=>{
-            return currenIndex -parseInt(simultanousCards);
+
+            if(!cycle){
+                return  Math.max(0,currenIndex -parseInt(simultanousCards));
+               } else {
+                return currenIndex -parseInt(simultanousCards);
+               }
+            
         })
     }
 
@@ -66,10 +78,8 @@ const Carousel = ({children,simultanousCards = 3}:CarouselProp)=>{
         <div className="flex">
             <img src="/leftArrow.svg" className='w-6 cursor-pointer z-100' onClick={onClickPrev}/>
             <div className={`flex overflow-hidden`} style={{width:carouseWidth}}>
-            {/* <div className={`flex  w-[1032px] overflow-hidden`}> */}
           {children.map((child, i, arr) => {
             // const clonnedChild = cloneElement(child,{sliderStartIndex:sliderStartIndex})
-            if (i + 1 === arr.length) return child
             return (
               <div style={{
                 transform: `translateX(-${100*(sliderStartIndex)}%)`,
