@@ -1,3 +1,4 @@
+import Tooltip from "./Tooltip"
 
 interface ScoreCardsProps{
     dummyMatchNo: string| number
@@ -7,11 +8,13 @@ interface ScoreCardsProps{
 const ScoreCard = ({dummyMatchNo}:ScoreCardsProps)=>{
 
     return (<div className="score-card-container w-80 border-2 rounded-lg mr-6 p-3 shrink-0">
+        <Tooltip text="The match between Englad and shrilanka was plyed on">
         <div className="score-card-header">
             <div className="match-staus">LIVE</div>
             <div className="match-staus">{dummyMatchNo} Test</div>
             <div className="match-staus">Manchester</div>
         </div>
+        
         <div className="score">
             <div className="team-1-result">
                 <div className="team-name">Eng</div>
@@ -27,6 +30,7 @@ const ScoreCard = ({dummyMatchNo}:ScoreCardsProps)=>{
             </div>
 
         </div>
+        </Tooltip>
     </div>)
 
 

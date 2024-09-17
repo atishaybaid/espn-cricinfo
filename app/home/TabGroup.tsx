@@ -85,14 +85,23 @@ const TabGroup = ({tabContent,defaultActiveTab=0,width}:tabGroupProps)=>{
         </div>
     }
 
-    const getWidth = useMemo(()=>{
+    // const getWidth = useMemo(()=>{
+    //     if (width){
+    //         return `${width}px`;
+    //     } else {
+    //         return "w-96"
+    //     }
+
+    // },[width])
+
+    const getWidth = ()=>{
         if (width){
             return `${width}px`;
         } else {
             return "w-96"
         }
 
-    },[width])
+    }
 /*
 
 <tabHeader>
