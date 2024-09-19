@@ -34,20 +34,20 @@ import {
   import TooltipItem from "./TooltipItem";
   
   interface tootipPropTypes {
-    children: ReactNode[];
+    children:ReactNode | ReactNode[];
     text: string;
   }
   
   const Tooltip = ({ children, text }: tootipPropTypes) => {
     const [displayTooltip, setDisplayTooltip] = useState(false);
     const tooltipWrapperRef = useRef(null);
-    const toolTipWidth = useRef(0);
+    const toolTipContainerDimensions = useRef(0);
   
     useLayoutEffect(() => {
       const tooltipWrapper = tooltipWrapperRef.current.getBoundingClientRect();
       console.log("tooltipWrapper dim")
       console.log(tooltipWrapper);
-      toolTipWidth.current = tooltipWrapper.width;
+      toolTipContainerDimensions.current = tooltipWrapper;
   
      
     }, []);
@@ -77,7 +77,7 @@ import {
     return (
       <div className="tooltip-wrapper" ref={tooltipWrapperRef}>
         {renderChildren()}
-        {displayTooltip  || true ? <TooltipItem text={text} parentWidth={toolTipWidth.current} display={displayTooltip} /> : null}
+        {displayTooltip  || true ? <TooltipItem text={text} parentDimensions={toolTipContainerDimensions.current} display={displayTooltip} /> : null}
       </div>
     );
   };

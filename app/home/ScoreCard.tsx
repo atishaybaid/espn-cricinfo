@@ -14,6 +14,7 @@ const ScoreCard = ({dummyMatchNo}:ScoreCardsProps)=>{
             <div className="match-staus">{dummyMatchNo} Test</div>
             <div className="match-staus">Manchester</div>
         </div>
+        </Tooltip>
         
         <div className="score">
             <div className="team-1-result">
@@ -30,7 +31,7 @@ const ScoreCard = ({dummyMatchNo}:ScoreCardsProps)=>{
             </div>
 
         </div>
-        </Tooltip>
+      
     </div>)
 
 

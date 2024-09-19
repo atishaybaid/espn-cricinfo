@@ -36,7 +36,7 @@ logic for translate
 import { Children, ReactNode, cloneElement, useState } from 'react'
 
 interface  CarouselProp {
-    children :ReactNode[],
+    children : ReactNode |ReactNode[],
     simultanousCards:string | number,
     cycle:boolean
 }
